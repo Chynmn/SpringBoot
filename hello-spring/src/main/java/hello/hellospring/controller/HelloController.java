@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
@@ -16,9 +17,15 @@ public class HelloController {
     }
 
     @GetMapping("hello-mvc")
-    public String hellomvc(@RequestParam("name") String name, Model model) {
+    public String helloMvc(@RequestParam("name") String name, Model model) {
         // 외부에서 parameter를 url로 받는 방식
         model.addAttribute("name", name);
         return "hello-template";
+    }
+
+    @GetMapping("hello-string")
+    @ResponseBody       // HTTP의 Body 부분에 name을 넣어주겠다.
+    public String hellowString(@RequestParam("name") String name) {
+        return "hello " + name;
     }
 }
